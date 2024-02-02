@@ -3,6 +3,8 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+require('dotenv').config() //用途:讀取環境變數
+const mongoose = require('mongoose') //連線到mongoDB
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -21,6 +23,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+
+// 連接資料庫
+mongoose
+  .connect(process.env.DATABASE, {})
+  .then(() => console.log('資料庫已連接'))
+  .catch(err => { console.error("資料庫連接錯誤", err); })
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
