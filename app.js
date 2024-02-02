@@ -8,6 +8,7 @@ const mongoose = require('mongoose') //連線到mongoDB
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var postRouter = require('./routes/post')
 
 var app = express();
 
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/api', postRouter);
 
 // 連接資料庫
 mongoose
